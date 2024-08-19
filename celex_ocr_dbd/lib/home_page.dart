@@ -1,45 +1,70 @@
-import 'package:celex_ocr_dbd/scanned_details.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:camera/camera.dart';
+import 'package:celex_ocr_dbd/scanned_details.dart'; // Import the ScannedDetails page
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+// FadeAnimation class
+class FadeAnimation extends StatefulWidget {
+  final double delay;
+  final Widget child;
+
+  FadeAnimation(this.delay, this.child);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _FadeAnimationState createState() => _FadeAnimationState();
 }
 
-class _HomePageState extends State<HomePage> {
-  late List<CameraDescription> _cameras;
+class _FadeAnimationState extends State<FadeAnimation>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _offsetAnimation;
+  late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
     super.initState();
-    _initializeCameras();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    final curve = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    );
+
+    _offsetAnimation = Tween<Offset>(
+      begin: Offset(0.0, 0.3),
+      end: Offset.zero,
+    ).animate(curve);
+
+    _opacityAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(curve);
+
+    _controller.forward();
   }
 
-  Future<void> _initializeCameras() async {
-    // Initialize the camera plugin and get the available cameras
-    _cameras = await availableCameras();
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
-  void _startCamera() {
-    if (_cameras.isNotEmpty) {
-      // Here you would navigate to a camera preview page
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CameraPreviewPage(camera: _cameras[0]),
-        ),
-      );
-    } else {
-      // Handle the case where no cameras are available
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No cameras available')),
-      );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _opacityAnimation,
+      child: SlideTransition(
+        position: _offsetAnimation,
+        child: widget.child,
+      ),
+    );
   }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,39 +77,39 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: Center(
-        child: Container(
-          color: Color.fromARGB(255, 245, 122, 122),
-          height: 120,
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ScannedDetails()));
-            },
-            child: Text(
-              "Start Camera",
-              style: GoogleFonts.poppins(color: Colors.red),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FadeAnimation(
+              0.1, // Delay for animation
+              Text(
+                "Start QC",
+                style: GoogleFonts.poppins(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
             ),
-          ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ScannedDetails()),
+                );
+              },
+              child: Text(
+                "Start",
+                style: GoogleFonts.poppins(color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Background color
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                textStyle: GoogleFonts.poppins(fontSize: 16),
+              ),
+            ),
+          ],
         ),
-      ),
-    );
-  }
-}
-
-class CameraPreviewPage extends StatelessWidget {
-  final CameraDescription camera;
-
-  const CameraPreviewPage({super.key, required this.camera});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Camera Preview'),
-      ),
-      body: Center(
-        child: Text('Camera preview for ${camera.name} will go here.'),
       ),
     );
   }
