@@ -1,6 +1,6 @@
-import 'package:celex_ocr_dbd/HSRP_size.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:celex_ocr_dbd/HSRP_size.dart'; // Ensure this import is correct for HsrpSize
 
 class HsrpColor extends StatefulWidget {
   const HsrpColor({super.key});
@@ -10,6 +10,17 @@ class HsrpColor extends StatefulWidget {
 }
 
 class _HsrpColorState extends State<HsrpColor> {
+  void _navigateToNextScreen(int colorValue, String colorName) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => HsrpSize(
+          colorValue: colorValue,
+          colorName: colorName,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +57,7 @@ class _HsrpColorState extends State<HsrpColor> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -54,7 +65,7 @@ class _HsrpColorState extends State<HsrpColor> {
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 45,
                     ),
                     Row(
@@ -62,8 +73,7 @@ class _HsrpColorState extends State<HsrpColor> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => HsrpSize()));
+                            _navigateToNextScreen(1, "White"); // White
                           },
                           child: Text(
                             "White",
@@ -80,7 +90,9 @@ class _HsrpColorState extends State<HsrpColor> {
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _navigateToNextScreen(2, "Yellow"); // Yellow
+                          },
                           child: Text(
                             "Yellow",
                             style: GoogleFonts.poppins(color: Colors.black),
@@ -98,14 +110,16 @@ class _HsrpColorState extends State<HsrpColor> {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _navigateToNextScreen(3, "Green"); // Green
+                          },
                           child: Text(
                             "Green",
                             style: GoogleFonts.poppins(color: Colors.black),
@@ -121,7 +135,9 @@ class _HsrpColorState extends State<HsrpColor> {
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _navigateToNextScreen(4, "Black"); // Black
+                          },
                           child: Text(
                             "Black",
                             style: GoogleFonts.poppins(color: Colors.white),

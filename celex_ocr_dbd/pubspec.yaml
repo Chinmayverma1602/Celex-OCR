@@ -38,6 +38,9 @@ dependencies:
   google_fonts: ^6.2.1
   camera: ^0.11.0+2
   animations: ^2.0.11
+  path_provider: ^2.0.11
+  path: ^1.8.3
+  img_picker: ^1.0.2
 
 dev_dependencies:
   flutter_test:
