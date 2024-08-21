@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
-import 'package:img_picker/img_picker.dart';
+import 'package:celex_ocr_dbd/Results.dart';
+import 'package:img_picker/img_picker.dart'; // Make sure the path is correct
 
 class CameraScreen extends StatefulWidget {
   final int colorValue;
@@ -23,7 +24,6 @@ class _CameraScreenState extends State<CameraScreen> {
   Future<void> _openCamera() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile.path);
@@ -148,11 +148,29 @@ class _CameraScreenState extends State<CameraScreen> {
 
           if (_image != null)
             Expanded(
-              child: Center(
-                child: Image.file(
-                  _image!,
-                  fit: BoxFit.cover,
-                ),
+              child: Stack(
+                children: [
+                  Center(
+                    child: Image.file(
+                      _image!,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: IconButton(
+                      icon: Icon(Icons.close, color: Colors.red, size: 30),
+                      onPressed: () {
+                        setState(() {
+                          _image = null; // Remove the image
+                        });
+                      },
+                    ),
+                  ),
+                ],
               ),
             )
           else
@@ -181,6 +199,8 @@ class _CameraScreenState extends State<CameraScreen> {
           if (_image != null)
             ElevatedButton(
               onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ScannedResults()));
                 // Navigate to the next screen or perform further actions
                 // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => NextScreen()));
               },

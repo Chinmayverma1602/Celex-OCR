@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen>
     return Container(
       width: double.infinity,
       child: Center(
-        child: Image.asset('lib/assets/ic splash.jpg'),
+        child: Image.asset('lib/assets/ic_splash.jpg'),
       ),
     );
   }
