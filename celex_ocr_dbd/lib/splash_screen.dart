@@ -15,9 +15,8 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      child: Center(
-        child: Image.asset('lib/assets/ic_splash.jpg'),
-      ),
+      height: double.infinity,
+      child: Image.asset('lib/assets/ic_splash.jpg'),
     );
   }
 

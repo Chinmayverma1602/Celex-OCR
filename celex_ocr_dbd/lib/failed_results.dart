@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class FailedResults extends StatefulWidget {
   const FailedResults({super.key});
 
@@ -37,7 +38,7 @@ class _FailedResultsState extends State<FailedResults> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
+        const          SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -48,7 +49,7 @@ class _FailedResultsState extends State<FailedResults> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+            const      SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -64,7 +65,7 @@ class _FailedResultsState extends State<FailedResults> {
                 ],
               ),
             ),
-            SizedBox(height: 15), // Space between the containers
+      const      SizedBox(height: 15), // Space between the containers
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
@@ -81,7 +82,7 @@ class _FailedResultsState extends State<FailedResults> {
                       "DBD Details",
                       style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+             const       SizedBox(
                       height: 20,
                     ),
                     Row(
@@ -92,7 +93,7 @@ class _FailedResultsState extends State<FailedResults> {
                           style: GoogleFonts.poppins(
                               fontSize: 14, fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(
+                 const       SizedBox(
                           width: 5,
                         ),
                         Container(
@@ -104,18 +105,18 @@ class _FailedResultsState extends State<FailedResults> {
                         )
                       ],
                     ),
-                    SizedBox(
+            const        SizedBox(
                       height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Front LID No : ",
+                          "Front LID No : ", 
                           style: GoogleFonts.poppins(
                               fontSize: 14, fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(
+                  const      SizedBox(
                           width: 5,
                         ),
                         Container(
@@ -127,7 +128,7 @@ class _FailedResultsState extends State<FailedResults> {
                         )
                       ],
                     ),
-                    SizedBox(
+           const         SizedBox(
                       height: 20,
                     ),
                     Row(
@@ -138,7 +139,7 @@ class _FailedResultsState extends State<FailedResults> {
                           style: GoogleFonts.poppins(
                               fontSize: 14, fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(
+                const        SizedBox(
                           width: 5,
                         ),
                         Container(
@@ -154,7 +155,7 @@ class _FailedResultsState extends State<FailedResults> {
                 ),
               ),
             ),
-            SizedBox(height: 10), // Space between the containers
+      const      SizedBox(height: 10), // Space between the containers
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
@@ -171,7 +172,7 @@ class _FailedResultsState extends State<FailedResults> {
                       "OCR Details",
                       style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+           const         SizedBox(
                       height: 30,
                     ),
                     Row(
@@ -182,7 +183,7 @@ class _FailedResultsState extends State<FailedResults> {
                           style: GoogleFonts.poppins(
                               fontSize: 14, fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(
+                const        SizedBox(
                           width: 5,
                         ),
                         Container(
@@ -194,7 +195,7 @@ class _FailedResultsState extends State<FailedResults> {
                         )
                       ],
                     ),
-                    SizedBox(
+             const       SizedBox(
                       height: 20,
                     ),
                     Row(
@@ -205,7 +206,7 @@ class _FailedResultsState extends State<FailedResults> {
                           style: GoogleFonts.poppins(
                               fontSize: 14, fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(
+                 const       SizedBox(
                           width: 5,
                         ),
                         Container(
@@ -221,7 +222,7 @@ class _FailedResultsState extends State<FailedResults> {
                 ),
               ),
             ),
-            Spacer(), // Pushes the buttons to the bottom
+       const     Spacer(), // Pushes the buttons to the bottom
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -229,7 +230,7 @@ class _FailedResultsState extends State<FailedResults> {
                   onPressed: () {
                     // Handle Pass action
                   },
-                  child: Text(
+                  child:  Text(
                     'Pass',
                     style:
                         GoogleFonts.poppins(fontSize: 18, color: Colors.black),

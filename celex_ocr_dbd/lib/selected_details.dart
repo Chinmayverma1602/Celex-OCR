@@ -93,7 +93,7 @@ class _CameraScreenState extends State<CameraScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(height: 40), // Adds space from the top of the screen
+     const     SizedBox(height: 40), 
 
           Container(
             padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
@@ -119,7 +119,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 10),
+       const         SizedBox(height: 10),
                 Text(
                   'Color: $colorName',
                   style: GoogleFonts.poppins(
@@ -127,13 +127,13 @@ class _CameraScreenState extends State<CameraScreen> {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 5),
+        const        SizedBox(height: 5),
                 Container(
                   width: 30,
                   height: 30,
                   color: selectedColor,
                 ),
-                SizedBox(height: 10),
+       const         SizedBox(height: 10),
                 Text(
                   'Size: $sizeDescription',
                   style: GoogleFonts.poppins(
@@ -144,7 +144,7 @@ class _CameraScreenState extends State<CameraScreen> {
               ],
             ),
           ),
-          SizedBox(height: 20), // Space between container and button
+    const      SizedBox(height: 20), // Space between container and button
 
           if (_image != null)
             Expanded(
@@ -162,7 +162,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     top: 10,
                     right: 10,
                     child: IconButton(
-                      icon: Icon(Icons.close, color: Colors.red, size: 30),
+                      icon: const Icon(Icons.close, color: Colors.red, size: 30),
                       onPressed: () {
                         setState(() {
                           _image = null; // Remove the image
@@ -194,15 +194,13 @@ class _CameraScreenState extends State<CameraScreen> {
                 ),
               ),
             ),
-          SizedBox(height: 20), // Space between button and next button
+     const     SizedBox(height: 20), // Space between button and next button
 
           if (_image != null)
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => ScannedResults()));
-                // Navigate to the next screen or perform further actions
-                // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => NextScreen()));
               },
               child: Text(
                 'Next',

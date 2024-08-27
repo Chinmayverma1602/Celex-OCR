@@ -40,7 +40,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
+              const        SizedBox(
                         height: 20,
                       ),
                       Text(
@@ -51,7 +51,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
+               const  SizedBox(
                         height: 20,
                       ),
                       Row(
@@ -68,7 +68,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                     ],
                   ),
                 ),
-                SizedBox(height: 15), // Space between the containers
+         const       SizedBox(height: 15), // Space between the containers
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -86,7 +86,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                           style:
                               GoogleFonts.poppins(fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                const        SizedBox(
                           height: 20,
                         ),
                         Row(
@@ -97,7 +97,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                               style: GoogleFonts.poppins(
                                   fontSize: 14, fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                    const        SizedBox(
                               width: 5,
                             ),
                             Container(
@@ -109,7 +109,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                             )
                           ],
                         ),
-                        SizedBox(
+                  const      SizedBox(
                           height: 20,
                         ),
                         Row(
@@ -120,7 +120,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                               style: GoogleFonts.poppins(
                                   fontSize: 14, fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                      const      SizedBox(
                               width: 5,
                             ),
                             Container(
@@ -132,7 +132,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                             )
                           ],
                         ),
-                        SizedBox(
+                    const    SizedBox(
                           height: 20,
                         ),
                         Row(
@@ -143,7 +143,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                               style: GoogleFonts.poppins(
                                   fontSize: 14, fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                      const      SizedBox(
                               width: 5,
                             ),
                             Container(
@@ -159,7 +159,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10), // Space between the containers
+          const      SizedBox(height: 10), // Space between the containers
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -177,7 +177,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                           style:
                               GoogleFonts.poppins(fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                  const      SizedBox(
                           height: 30,
                         ),
                         Row(
@@ -188,7 +188,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                               style: GoogleFonts.poppins(
                                   fontSize: 14, fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                    const        SizedBox(
                               width: 5,
                             ),
                             Container(
@@ -200,7 +200,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                             )
                           ],
                         ),
-                        SizedBox(
+                  const      SizedBox(
                           height: 20,
                         ),
                         Row(
@@ -211,7 +211,7 @@ class _ScannedResultsState extends State<ScannedResults> {
                               style: GoogleFonts.poppins(
                                   fontSize: 14, fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                    const        SizedBox(
                               width: 5,
                             ),
                             Container(

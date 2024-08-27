@@ -73,7 +73,7 @@ class _HsrpColorState extends State<HsrpColor> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            _navigateToNextScreen(1, "White"); // White
+                            _navigateToNextScreen(1, "White");
                           },
                           child: Text(
                             "White",
@@ -100,7 +100,7 @@ class _HsrpColorState extends State<HsrpColor> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color.fromARGB(255, 255, 240, 101),
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4),
