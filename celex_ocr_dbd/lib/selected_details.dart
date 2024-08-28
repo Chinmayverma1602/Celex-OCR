@@ -1,8 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:io';
-import 'package:celex_ocr_dbd/Results.dart';
-import 'package:img_picker/img_picker.dart'; // Make sure the path is correct
+import 'package:http/http.dart' as http;
+import 'package:img_picker/img_picker.dart';
+
+import 'Results.dart'; // Import the http package
 
 class CameraScreen extends StatefulWidget {
   final int colorValue;
@@ -31,19 +34,69 @@ class _CameraScreenState extends State<CameraScreen> {
     }
   }
 
-  // Define a map to convert color values to color and name
+  Future<void> postPlateDetails() async {
+    if (_image == null) {
+      print('No image selected');
+      return;
+    }
+
+    String base64Image = base64Encode(await _image!.readAsBytes());
+
+    final url = Uri.parse(
+        'https://uat-newmmhsrp.celexhsrp.in/hsrp-ocr/img_ocr_res.php');
+
+    final Map<String, dynamic> requestBody = {
+      "plate_color": widget.colorValue.toString(),
+      "plate_size": widget.sizeValue.toString(),
+      "esm_id": "1",
+      "attachment": base64Image,
+    };
+    print(requestBody);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode(requestBody),
+      );
+
+      if (response.statusCode == 200) {
+        // Parse response data
+        final responseData = jsonDecode(response.body);
+
+        // Navigate to the ScannedResults screen with API response data
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ScannedResults(
+              regNo: responseData['reg_no'],
+              frontLidNo: responseData['front_lid_no'],
+              rearLidNo: responseData['rear_lid_no'],
+            ),
+          ),
+        );
+      } else {
+        // Handle error response
+        print('Error: ${response.statusCode}, ${response.body}');
+      }
+    } catch (e) {
+      print('Exception caught: $e');
+    }
+  }
+
   Color _getColorFromValue(int value) {
     switch (value) {
       case 1:
         return Colors.white;
       case 2:
-        return Color.fromARGB(255, 255, 240, 101); // Yellow
+        return Color.fromARGB(255, 255, 240, 101);
       case 3:
-        return Color.fromARGB(255, 126, 240, 130); // Green
+        return Color.fromARGB(255, 126, 240, 130);
       case 4:
         return Colors.black;
       default:
-        return Colors.grey; // Default color if no match
+        return Colors.grey;
     }
   }
 
@@ -58,7 +111,7 @@ class _CameraScreenState extends State<CameraScreen> {
       case 4:
         return 'Black';
       default:
-        return 'Unknown'; // Default name if no match
+        return 'Unknown';
     }
   }
 
@@ -73,7 +126,7 @@ class _CameraScreenState extends State<CameraScreen> {
       case 4:
         return '340 x 200';
       default:
-        return 'Unknown Size'; // Default size description if no match
+        return 'Unknown Size';
     }
   }
 
@@ -93,8 +146,7 @@ class _CameraScreenState extends State<CameraScreen> {
       ),
       body: Column(
         children: [
-     const     SizedBox(height: 40), 
-
+          const SizedBox(height: 40),
           Container(
             padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
             decoration: BoxDecoration(
@@ -119,7 +171,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     color: Colors.white,
                   ),
                 ),
-       const         SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   'Color: $colorName',
                   style: GoogleFonts.poppins(
@@ -127,13 +179,13 @@ class _CameraScreenState extends State<CameraScreen> {
                     color: Colors.white,
                   ),
                 ),
-        const        SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Container(
                   width: 30,
                   height: 30,
                   color: selectedColor,
                 ),
-       const         SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   'Size: $sizeDescription',
                   style: GoogleFonts.poppins(
@@ -144,8 +196,7 @@ class _CameraScreenState extends State<CameraScreen> {
               ],
             ),
           ),
-    const      SizedBox(height: 20), // Space between container and button
-
+          const SizedBox(height: 20),
           if (_image != null)
             Expanded(
               child: Stack(
@@ -162,10 +213,11 @@ class _CameraScreenState extends State<CameraScreen> {
                     top: 10,
                     right: 10,
                     child: IconButton(
-                      icon: const Icon(Icons.close, color: Colors.red, size: 30),
+                      icon:
+                          const Icon(Icons.close, color: Colors.red, size: 30),
                       onPressed: () {
                         setState(() {
-                          _image = null; // Remove the image
+                          _image = null;
                         });
                       },
                     ),
@@ -194,14 +246,10 @@ class _CameraScreenState extends State<CameraScreen> {
                 ),
               ),
             ),
-     const     SizedBox(height: 20), // Space between button and next button
-
+          const SizedBox(height: 20),
           if (_image != null)
             ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ScannedResults()));
-              },
+              onPressed: postPlateDetails,
               child: Text(
                 'Next',
                 style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
