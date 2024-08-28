@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -7,7 +8,6 @@ import 'package:img_picker/img_picker.dart';
 
 import 'failure_results.dart';
 import 'success_result.dart';
-
 
 class CameraScreen extends StatefulWidget {
   final int colorValue;
@@ -42,11 +42,26 @@ class _CameraScreenState extends State<CameraScreen> {
       return;
     }
 
+    // Show the Snackbar
+    final snackBar = SnackBar(
+      content: Row(
+        children: const [
+          CircularProgressIndicator(),
+          SizedBox(width: 16),
+          Text('Processing...'),
+        ],
+      ),
+      duration: const Duration(
+          minutes: 1), // Keep it visible until dismissed manually
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
     // Convert image to base64 string
     String base64Image = base64Encode(await _image!.readAsBytes());
 
     // Define the API endpoint
-    final url = Uri.parse('https://uat-newmmhsrp.celexhsrp.in/hsrp-ocr/img_ocr_res.php'); // Replace with your API URL
+    final url = Uri.parse(
+        'https://uat-newmmhsrp.celexhsrp.in/hsrp-ocr/img_ocr_res.php'); // Replace with your API URL
 
     // Create the request body
     final Map<String, dynamic> requestBody = {
@@ -65,6 +80,9 @@ class _CameraScreenState extends State<CameraScreen> {
         },
         body: jsonEncode(requestBody),
       );
+
+      // Dismiss the Snackbar
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
       if (response.statusCode == 200) {
         // Parse response data
@@ -100,10 +118,12 @@ class _CameraScreenState extends State<CameraScreen> {
         print('Error: ${response.statusCode}, ${response.body}');
       }
     } catch (e) {
+      // Dismiss the Snackbar in case of an exception
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
       print('Exception caught: $e');
     }
   }
-
 
   Color _getColorFromValue(int value) {
     switch (value) {
