@@ -1,13 +1,13 @@
-import 'package:celex_ocr_dbd/failed_results.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ScannedResults extends StatefulWidget {
+class SuccessResults extends StatefulWidget {
   final String regNo;
   final String frontLidNo;
   final String rearLidNo;
 
-  const ScannedResults({
+  const SuccessResults({
     super.key,
     required this.regNo,
     required this.frontLidNo,
@@ -15,10 +15,10 @@ class ScannedResults extends StatefulWidget {
   });
 
   @override
-  State<ScannedResults> createState() => _ScannedResultsState();
+  State<SuccessResults> createState() => _SuccessResultsState();
 }
 
-class _ScannedResultsState extends State<ScannedResults> {
+class _SuccessResultsState extends State<SuccessResults> {
   @override
   Widget build(BuildContext context) {
     // Get the screen dimensions
@@ -265,8 +265,7 @@ class _ScannedResultsState extends State<ScannedResults> {
       ),
       bottomNavigationBar: ElevatedButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => FailedResults()));
+
         },
         child: Text(
           "Next",

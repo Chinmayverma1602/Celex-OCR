@@ -5,7 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:img_picker/img_picker.dart';
 
-import 'Results.dart'; // Import the http package
+import 'failure_results.dart';
+import 'success_result.dart';
+
 
 class CameraScreen extends StatefulWidget {
   final int colorValue;
@@ -40,18 +42,20 @@ class _CameraScreenState extends State<CameraScreen> {
       return;
     }
 
+    // Convert image to base64 string
     String base64Image = base64Encode(await _image!.readAsBytes());
 
-    final url = Uri.parse(
-        'https://uat-newmmhsrp.celexhsrp.in/hsrp-ocr/img_ocr_res.php');
+    // Define the API endpoint
+    final url = Uri.parse('https://uat-newmmhsrp.celexhsrp.in/hsrp-ocr/img_ocr_res.php'); // Replace with your API URL
 
+    // Create the request body
     final Map<String, dynamic> requestBody = {
       "plate_color": widget.colorValue.toString(),
       "plate_size": widget.sizeValue.toString(),
-      "esm_id": "1",
+      "esm_id": "1", // Replace with your actual esm_id if needed
       "attachment": base64Image,
     };
-    print(requestBody);
+    print("123 $requestBody");
 
     try {
       final response = await http.post(
@@ -65,17 +69,32 @@ class _CameraScreenState extends State<CameraScreen> {
       if (response.statusCode == 200) {
         // Parse response data
         final responseData = jsonDecode(response.body);
+        print("456 $responseData");
 
-        // Navigate to the ScannedResults screen with API response data
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ScannedResults(
-              regNo: responseData['reg_no'],
-              frontLidNo: responseData['front_lid_no'],
-              rearLidNo: responseData['rear_lid_no'],
+        // Check the status and navigate accordingly
+        if (responseData['status'] == 1) {
+          // Navigate to the ScannedResults screen with API response data
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SuccessResults(
+                regNo: responseData['reg_no'],
+                frontLidNo: responseData['front_lid_no'],
+                rearLidNo: responseData['rear_lid_no'],
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          // Navigate to the FailedResults screen with API response data
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => FailedResults(
+                regNo: responseData['reg_no'],
+                frontLidNo: responseData['front_lid_no'],
+                rearLidNo: responseData['rear_lid_no'],
+              ),
+            ),
+          );
+        }
       } else {
         // Handle error response
         print('Error: ${response.statusCode}, ${response.body}');
@@ -84,6 +103,7 @@ class _CameraScreenState extends State<CameraScreen> {
       print('Exception caught: $e');
     }
   }
+
 
   Color _getColorFromValue(int value) {
     switch (value) {
