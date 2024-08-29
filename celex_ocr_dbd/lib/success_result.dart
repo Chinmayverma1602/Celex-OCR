@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,12 +5,16 @@ class SuccessResults extends StatefulWidget {
   final String regNo;
   final String frontLidNo;
   final String rearLidNo;
+  final String ocrRegNo;
+  final String ocrLidNo;
 
   const SuccessResults({
     super.key,
     required this.regNo,
     required this.frontLidNo,
     required this.rearLidNo,
+    required this.ocrRegNo,
+    required this.ocrLidNo,
   });
 
   @override
@@ -64,7 +67,8 @@ class _SuccessResultsState extends State<SuccessResults> {
                       children: [
                         Text(
                           "Registration No. & LID No. matched\n      successfully..",
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                          style:
+                              GoogleFonts.poppins(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -81,7 +85,8 @@ class _SuccessResultsState extends State<SuccessResults> {
                 width: screenWidth * 0.8, // 80% of screen width
                 height: screenHeight * 0.3, // 20% of screen height
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 25),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 13.0, vertical: 25),
                   child: Column(
                     children: [
                       Text(
@@ -191,21 +196,20 @@ class _SuccessResultsState extends State<SuccessResults> {
                     children: [
                       Text(
                         "OCR Details",
-                        style:
-                        GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                       ),
-                      const      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Front LID No : ",
+                            "Registration No : ",
                             style: GoogleFonts.poppins(
                                 fontSize: 14, fontWeight: FontWeight.w500),
                           ),
-                          const        SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Container(
@@ -217,25 +221,25 @@ class _SuccessResultsState extends State<SuccessResults> {
                             ),
                             child: Center(
                               child: Text(
-                                widget.frontLidNo,
+                                widget.ocrRegNo,
                                 style: GoogleFonts.poppins(fontSize: 14),
                               ),
                             ),
                           )
                         ],
                       ),
-                      const      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Rear LID No. :",
+                            "LID No. :",
                             style: GoogleFonts.poppins(
                                 fontSize: 14, fontWeight: FontWeight.w500),
                           ),
-                          const        SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Container(
@@ -247,7 +251,7 @@ class _SuccessResultsState extends State<SuccessResults> {
                             ),
                             child: Center(
                               child: Text(
-                                widget.rearLidNo,
+                                widget.ocrLidNo,
                                 style: GoogleFonts.poppins(fontSize: 14),
                               ),
                             ),
@@ -257,16 +261,14 @@ class _SuccessResultsState extends State<SuccessResults> {
                     ],
                   ),
                 ),
-              ),// Space between the containers
+              ), // Space between the containers
               // Add similar containers for OCR Details if needed
             ],
           ),
         ),
       ),
       bottomNavigationBar: ElevatedButton(
-        onPressed: () {
-
-        },
+        onPressed: () {},
         child: Text(
           "Next",
           style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.bold),
@@ -283,4 +285,3 @@ class _SuccessResultsState extends State<SuccessResults> {
     );
   }
 }
-
