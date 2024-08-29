@@ -70,7 +70,7 @@ class _CameraScreenState extends State<CameraScreen> {
       "esm_id": "1", // Replace with your actual esm_id if needed
       "attachment": base64Image,
     };
-    print("123 $requestBody");
+    print("Request body: $requestBody");
 
     try {
       final response = await http.post(
@@ -87,7 +87,13 @@ class _CameraScreenState extends State<CameraScreen> {
       if (response.statusCode == 200) {
         // Parse response data
         final responseData = jsonDecode(response.body);
-        print("456 $responseData");
+        print("Response data: $responseData");
+
+        // Ensure that each key exists and is not null before using it
+        String regNo = responseData['reg_no'] ?? 'Unknown';
+        String frontLidNo = responseData['front_lid_no'] ?? 'Unknown';
+        String rearLidNo = responseData['rear_lid_no'] ?? 'Unknown';
+        String message = responseData['message'] ?? 'Unknown';
 
         // Check the status and navigate accordingly
         if (responseData['status'] == 1) {
@@ -95,9 +101,9 @@ class _CameraScreenState extends State<CameraScreen> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => SuccessResults(
-                regNo: responseData['reg_no'],
-                frontLidNo: responseData['front_lid_no'],
-                rearLidNo: responseData['rear_lid_no'],
+                regNo: regNo,
+                frontLidNo: frontLidNo,
+                rearLidNo: rearLidNo,
               ),
             ),
           );
@@ -106,9 +112,10 @@ class _CameraScreenState extends State<CameraScreen> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => FailedResults(
-                regNo: responseData['reg_no'],
-                frontLidNo: responseData['front_lid_no'],
-                rearLidNo: responseData['rear_lid_no'],
+                regNo: regNo,
+                frontLidNo: frontLidNo,
+                rearLidNo: rearLidNo,
+                message: message,
               ),
             ),
           );
@@ -122,6 +129,7 @@ class _CameraScreenState extends State<CameraScreen> {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
       print('Exception caught: $e');
+      print('Stack trace: ${e.toString()}');
     }
   }
 

@@ -6,13 +6,14 @@ class FailedResults extends StatefulWidget {
   final String regNo;
   final String frontLidNo;
   final String rearLidNo;
+  final String message;
 
-  const FailedResults({
-    super.key,
-    required this.regNo,
-    required this.frontLidNo,
-    required this.rearLidNo,
-  });
+  const FailedResults(
+      {super.key,
+      required this.regNo,
+      required this.frontLidNo,
+      required this.rearLidNo,
+      required this.message});
 
   @override
   State<FailedResults> createState() => _FailedResultsState();
@@ -66,7 +67,7 @@ class _FailedResultsState extends State<FailedResults> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Registration No. & LID No. did not\n      match. Please try again.",
+                              widget.message,
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
@@ -270,7 +271,7 @@ class _FailedResultsState extends State<FailedResults> {
                         backgroundColor: Colors.green,
                         padding: EdgeInsets.symmetric(
                             horizontal: screenWidth * 0.1,
-                            vertical: screenHeight * 0.02),
+                            vertical: screenHeight * 0.001),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -291,7 +292,7 @@ class _FailedResultsState extends State<FailedResults> {
                         backgroundColor: Colors.red,
                         padding: EdgeInsets.symmetric(
                             horizontal: screenWidth * 0.1,
-                            vertical: screenHeight * 0.02),
+                            vertical: screenHeight * 0.001),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
