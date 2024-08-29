@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:celex_ocr_dbd/HSRP_size.dart'; // Ensure this import is correct for HsrpSize
+import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences for handling saved data
+import 'package:celex_ocr_dbd/login_page.dart'; // Import LoginPage
 
 class HsrpColor extends StatefulWidget {
   const HsrpColor({super.key});
@@ -10,6 +12,17 @@ class HsrpColor extends StatefulWidget {
 }
 
 class _HsrpColorState extends State<HsrpColor> {
+  // Logout function
+  Future<void> _logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('username'); // Remove saved username
+    await prefs.remove('password'); // Remove saved password
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
+  }
+
   void _navigateToNextScreen(int colorValue, String colorName) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -30,6 +43,13 @@ class _HsrpColorState extends State<HsrpColor> {
           style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: _logout,
+          ),
+          const SizedBox(width: 20), // Add some spacing from the edge
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -43,8 +63,7 @@ class _HsrpColorState extends State<HsrpColor> {
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: Colors.black, width: .1),
+                  border: Border.all(color: Colors.black, width: .1),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),
@@ -57,17 +76,15 @@ class _HsrpColorState extends State<HsrpColor> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     Text(
                       'Select HSRP color',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold, fontSize: 16),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
-                    const SizedBox(
-                      height: 45,
-                    ),
+                    const SizedBox(height: 45),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -81,7 +98,7 @@ class _HsrpColorState extends State<HsrpColor> {
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4),
@@ -110,9 +127,7 @@ class _HsrpColorState extends State<HsrpColor> {
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -125,8 +140,9 @@ class _HsrpColorState extends State<HsrpColor> {
                             style: GoogleFonts.poppins(color: Colors.black),
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 126, 240, 130),
-                            padding: EdgeInsets.symmetric(
+                            backgroundColor:
+                                const Color.fromARGB(255, 126, 240, 130),
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4),
@@ -144,7 +160,7 @@ class _HsrpColorState extends State<HsrpColor> {
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4),
