@@ -11,7 +11,7 @@ class SuccessResults extends StatefulWidget {
     super.key,
     required this.regNo,
     required this.frontLidNo,
-    required this.rearLidNo,
+    required this.rearLidNo, String? ocrText,
   });
 
   @override
