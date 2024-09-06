@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Import flutter_svg for handling SVG files
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart'; // Import Google Fonts
+import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences
 import 'package:celex_ocr_dbd/HSRP_color.dart'; // Import your HsrpColor page
 
 class LoginPage extends StatefulWidget {
@@ -17,10 +18,30 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _loadCredentials();
+  }
+
+  @override
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _loadCredentials() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _usernameController.text = prefs.getString('username') ?? '';
+      _passwordController.text = prefs.getString('password') ?? '';
+    });
+  }
+
+  Future<void> _saveCredentials(String username, String password) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', username);
+    prefs.setString('password', password);
   }
 
   Future<void> _login() async {
@@ -48,7 +69,9 @@ class _LoginPageState extends State<LoginPage> {
       // Check the status and handle the response
       if (response.statusCode == 200) {
         if (responseBody['status'] == 1) {
-          // Navigate to the next screen on successful login
+          // Save credentials if login is successful
+          await _saveCredentials(username, password);
+
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const HsrpColor()),
           );

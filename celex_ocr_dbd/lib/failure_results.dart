@@ -6,12 +6,22 @@ class FailedResults extends StatefulWidget {
   final String regNo;
   final String frontLidNo;
   final String rearLidNo;
+  final String message;
+  final String ocrRegNo;
+  final String ocrLidNo;
 
   const FailedResults({
     super.key,
+    required this.ocrRegNo,
+    required this.ocrLidNo,
     required this.regNo,
     required this.frontLidNo,
+<<<<<<< HEAD
     required this.rearLidNo, String? ocrText,
+=======
+    required this.rearLidNo,
+    required this.message,
+>>>>>>> d621c8fc0d7ef69bff2822df13e8955e4c2546e4
   });
 
   @override
@@ -62,17 +72,18 @@ class _FailedResultsState extends State<FailedResults> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Registration No. & LID No. did not\n      match. Please try again.",
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text(
+                            widget.message,
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
                             ),
-                          ],
-                        )
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.visible,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -199,13 +210,13 @@ class _FailedResultsState extends State<FailedResults> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Front LID No : ",
+                                "Registration No : ",
                                 style: GoogleFonts.poppins(
                                     fontSize: 14, fontWeight: FontWeight.w500),
                               ),
                               const SizedBox(width: 5),
                               Container(
-                                width: screenWidth * 0.35,
+                                width: screenWidth * 0.34,
                                 height: screenHeight * 0.04,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
@@ -213,7 +224,7 @@ class _FailedResultsState extends State<FailedResults> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    widget.frontLidNo,
+                                    widget.ocrRegNo,
                                     style: GoogleFonts.poppins(fontSize: 14),
                                   ),
                                 ),
@@ -225,13 +236,13 @@ class _FailedResultsState extends State<FailedResults> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Rear LID No. :",
+                                "LID No. :",
                                 style: GoogleFonts.poppins(
                                     fontSize: 14, fontWeight: FontWeight.w500),
                               ),
                               const SizedBox(width: 5),
                               Container(
-                                width: screenWidth * 0.35,
+                                width: screenWidth * 0.34,
                                 height: screenHeight * 0.04,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
@@ -239,7 +250,7 @@ class _FailedResultsState extends State<FailedResults> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    widget.rearLidNo,
+                                    widget.ocrLidNo,
                                     style: GoogleFonts.poppins(fontSize: 14),
                                   ),
                                 ),
@@ -270,7 +281,7 @@ class _FailedResultsState extends State<FailedResults> {
                         backgroundColor: Colors.green,
                         padding: EdgeInsets.symmetric(
                             horizontal: screenWidth * 0.1,
-                            vertical: screenHeight * 0.02),
+                            vertical: screenHeight * 0.001),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -291,7 +302,7 @@ class _FailedResultsState extends State<FailedResults> {
                         backgroundColor: Colors.red,
                         padding: EdgeInsets.symmetric(
                             horizontal: screenWidth * 0.1,
-                            vertical: screenHeight * 0.02),
+                            vertical: screenHeight * 0.001),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
