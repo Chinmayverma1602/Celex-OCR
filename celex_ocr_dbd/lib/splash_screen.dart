@@ -41,24 +41,12 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   @override
-<<<<<<< HEAD
-  void initState() {
-    super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => ScannedResultsScreen()),
-      );
-    });
-=======
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Image.asset('lib/assets/ic_splash.jpg'),
       ),
     );
->>>>>>> d621c8fc0d7ef69bff2822df13e8955e4c2546e4
   }
 
   @override

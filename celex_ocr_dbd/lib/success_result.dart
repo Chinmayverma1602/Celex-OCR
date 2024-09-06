@@ -13,6 +13,8 @@ class SuccessResults extends StatefulWidget {
     required this.regNo,
     required this.frontLidNo,
     required this.rearLidNo,
+    required this.ocrLidNo,
+    required this.ocrRegNo
   });
 
   @override

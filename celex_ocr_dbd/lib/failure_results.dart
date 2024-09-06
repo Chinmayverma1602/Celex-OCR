@@ -16,12 +16,12 @@ class FailedResults extends StatefulWidget {
     required this.ocrLidNo,
     required this.regNo,
     required this.frontLidNo,
-<<<<<<< HEAD
-    required this.rearLidNo, String? ocrText,
-=======
+
     required this.rearLidNo,
+
+    
     required this.message,
->>>>>>> d621c8fc0d7ef69bff2822df13e8955e4c2546e4
+
   });
 
   @override
