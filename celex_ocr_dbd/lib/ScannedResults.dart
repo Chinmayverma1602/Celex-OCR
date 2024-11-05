@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:celex_ocr_dbd/Second_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -218,7 +219,7 @@ class _ScannedResultsScreenState extends State<ScannedResultsScreen>
                         children: [
                           const Icon(Icons.camera_alt, color: Colors.white),
                           const SizedBox(width: 8),
-                          const Text(
+                          Text(
                             'Open Camera',
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
@@ -235,7 +236,16 @@ class _ScannedResultsScreenState extends State<ScannedResultsScreen>
                     )
                   : Container(), // Hides the button when text is displayed
             ),
-          )
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BackupScanning()));
+              },
+              child: Text("New Button"))
         ],
       ),
     );

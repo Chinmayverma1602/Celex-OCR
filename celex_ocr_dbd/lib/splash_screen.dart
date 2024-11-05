@@ -1,4 +1,4 @@
-import 'package:celex_ocr_dbd/ScannedResults.dart';
+/* import 'package:celex_ocr_dbd/ScannedResults.dart'; */
 import 'package:celex_ocr_dbd/login_page.dart';
 import 'package:celex_ocr_dbd/HSRP_color.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,8 @@ class _SplashScreenState extends State<SplashScreen>
           MaterialPageRoute(builder: (context) => const LoginPage()),
         );
       }
-    });
+    }
+    );
   }
 
   @override

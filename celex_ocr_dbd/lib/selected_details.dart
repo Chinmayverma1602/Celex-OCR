@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:celex_ocr_dbd/ScannedResults.dart';
+import 'package:celex_ocr_dbd/Second_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -299,7 +301,16 @@ class _CameraScreenState extends State<CameraScreen> {
                 ),
               ),
             ),
-          const SizedBox(height: 20),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BackupScanning()));
+              },
+              child: Text("New Button")),
+          SizedBox(height: 20),
           if (_image != null)
             ElevatedButton(
               onPressed: postPlateDetails,
@@ -317,6 +328,27 @@ class _CameraScreenState extends State<CameraScreen> {
                 textStyle: GoogleFonts.poppins(fontSize: 18),
               ),
             ),
+          SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ScannedResultsScreen()));
+            },
+            child: Text(
+              "Scan Through ML Kit",
+              style: GoogleFonts.poppins(color: Colors.white),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.teal,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 17),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              textStyle: GoogleFonts.poppins(fontSize: 18),
+            ),
+          )
         ],
       ),
     );
