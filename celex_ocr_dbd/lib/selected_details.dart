@@ -45,16 +45,16 @@ class _CameraScreenState extends State<CameraScreen> {
     }
 
     // Show the Snackbar
-    final snackBar = SnackBar(
+    const snackBar = SnackBar(
       content: Row(
-        children: const [
+        children: [
           CircularProgressIndicator(),
           SizedBox(width: 16),
           Text('Processing...'),
         ],
       ),
-      duration: const Duration(
-          minutes: 1), // Keep it visible until dismissed manually
+      duration:
+          Duration(minutes: 1), // Keep it visible until dismissed manually
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
@@ -145,9 +145,9 @@ class _CameraScreenState extends State<CameraScreen> {
       case 1:
         return Colors.white;
       case 2:
-        return Color.fromARGB(255, 255, 240, 101);
+        return const Color.fromARGB(255, 255, 240, 101);
       case 3:
-        return Color.fromARGB(255, 126, 240, 130);
+        return const Color.fromARGB(255, 126, 240, 130);
       case 4:
         return Colors.black;
       default:
@@ -203,7 +203,7 @@ class _CameraScreenState extends State<CameraScreen> {
         children: [
           const SizedBox(height: 40),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
             decoration: BoxDecoration(
               color: Colors.blueAccent,
               borderRadius: BorderRadius.circular(8),
@@ -212,7 +212,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   color: Colors.black.withOpacity(0.2),
                   spreadRadius: 3,
                   blurRadius: 5,
-                  offset: Offset(0, 4),
+                  offset: const Offset(0, 4),
                 ),
               ],
             ),
@@ -285,39 +285,52 @@ class _CameraScreenState extends State<CameraScreen> {
               child: Center(
                 child: ElevatedButton(
                   onPressed: _openCamera,
-                  child: Text(
-                    'Open Camera',
-                    style:
-                        GoogleFonts.poppins(fontSize: 18, color: Colors.white),
-                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.teal,
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                     textStyle: GoogleFonts.poppins(fontSize: 18),
                   ),
+                  child: Text(
+                    'Open Camera',
+                    style:
+                        GoogleFonts.poppins(fontSize: 18, color: Colors.white),
+                  ),
                 ),
               ),
             ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BackupScanning()));
-              },
-              child: Text("New Button")),
-          SizedBox(height: 20),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.teal,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              textStyle: GoogleFonts.poppins(fontSize: 18),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CameraScreen2(
+                    colorValue: widget.colorValue,
+                    sizeValue: widget.sizeValue,
+                  ), // Correct
+                ),
+              );
+            },
+            child: const Text("New Button"),
+          ),
+          const SizedBox(height: 20),
           if (_image != null)
             ElevatedButton(
               onPressed: postPlateDetails,
-              child: Text(
-                'Next',
-                style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal,
                 padding:
@@ -327,26 +340,30 @@ class _CameraScreenState extends State<CameraScreen> {
                 ),
                 textStyle: GoogleFonts.poppins(fontSize: 18),
               ),
+              child: Text(
+                'Next',
+                style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
+              ),
             ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScannedResultsScreen()));
+                  builder: (context) => const ScannedResultsScreen()));
             },
-            child: Text(
-              "Scan Through ML Kit",
-              style: GoogleFonts.poppins(color: Colors.white),
-            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.teal,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 17),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 17),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               textStyle: GoogleFonts.poppins(fontSize: 18),
+            ),
+            child: Text(
+              "Scan Through ML Kit",
+              style: GoogleFonts.poppins(color: Colors.white),
             ),
           )
         ],

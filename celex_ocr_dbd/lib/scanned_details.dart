@@ -22,13 +22,13 @@ class _ScannedDetailsState extends State<ScannedDetails> {
       ),
       body: Column(
         children: [
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Color.fromARGB(255, 188, 233, 255),
+                color: const Color.fromARGB(255, 188, 233, 255),
               ),
               height: 200,
               width: 300,
@@ -61,7 +61,7 @@ class _ScannedDetailsState extends State<ScannedDetails> {
                     top: 40, // Adjust top position to fit below "OCR Details"
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -77,7 +77,8 @@ class _ScannedDetailsState extends State<ScannedDetails> {
                           ),
                           // color: Colors.grey.shade200,
                         ),
-                        SizedBox(height: 25), // Spacing between containers
+                        const SizedBox(
+                            height: 25), // Spacing between containers
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
@@ -99,7 +100,7 @@ class _ScannedDetailsState extends State<ScannedDetails> {
                     top: 40, // Adjust top position to fit below "DBD Details"
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -115,7 +116,8 @@ class _ScannedDetailsState extends State<ScannedDetails> {
                           ),
                           // color: Colors.grey.shade200,
                         ),
-                        SizedBox(height: 25), // Spacing between containers
+                        const SizedBox(
+                            height: 25), // Spacing between containers
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
@@ -136,7 +138,7 @@ class _ScannedDetailsState extends State<ScannedDetails> {
               ),
             ),
           ),
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:celex_ocr_dbd/Second_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -141,9 +140,9 @@ class _ScannedResultsScreenState extends State<ScannedResultsScreen>
                   ),
                 )
               else
-                Expanded(
+                const Expanded(
                   child: Center(
-                    child: const Text(
+                    child: Text(
                       "No image selected.",
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                     ),
@@ -214,17 +213,6 @@ class _ScannedResultsScreenState extends State<ScannedResultsScreen>
               child: _extractedText.isEmpty
                   ? ElevatedButton(
                       onPressed: _openCamera,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.camera_alt, color: Colors.white),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Open Camera',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ],
-                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.redAccent,
                         padding: const EdgeInsets.symmetric(
@@ -233,19 +221,21 @@ class _ScannedResultsScreenState extends State<ScannedResultsScreen>
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.camera_alt, color: Colors.white),
+                          SizedBox(width: 8),
+                          Text(
+                            'Open Camera',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        ],
+                      ),
                     )
                   : Container(), // Hides the button when text is displayed
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BackupScanning()));
-              },
-              child: Text("New Button"))
+          )
         ],
       ),
     );
