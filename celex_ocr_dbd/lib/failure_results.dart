@@ -263,7 +263,7 @@ class _FailedResultsState extends State<FailedResults> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -274,7 +274,7 @@ class _FailedResultsState extends State<FailedResults> {
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => HsrpColor()));
+                            builder: (context) => const HsrpColor()));
                         // Handle the "Pass" action
                       },
                       style: ElevatedButton.styleFrom(
@@ -295,7 +295,7 @@ class _FailedResultsState extends State<FailedResults> {
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => HsrpColor()));
+                            builder: (context) => const HsrpColor()));
                         // Handle the "Fail" action
                       },
                       style: ElevatedButton.styleFrom(

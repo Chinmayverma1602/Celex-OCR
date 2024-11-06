@@ -269,10 +269,6 @@ class _SuccessResultsState extends State<SuccessResults> {
       ),
       bottomNavigationBar: ElevatedButton(
         onPressed: () {},
-        child: Text(
-          "Next",
-          style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.bold),
-        ),
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 197, 226, 250),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -280,6 +276,10 @@ class _SuccessResultsState extends State<SuccessResults> {
             borderRadius: BorderRadius.circular(8),
           ),
           textStyle: GoogleFonts.poppins(fontSize: 18),
+        ),
+        child: Text(
+          "Next",
+          style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.bold),
         ),
       ),
     );

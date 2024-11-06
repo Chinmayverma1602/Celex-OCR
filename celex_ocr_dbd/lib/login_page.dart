@@ -191,19 +191,19 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: _login,
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                    backgroundColor: const Color.fromARGB(255, 233, 118, 143),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                   child: Text(
                     'Login',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 14),
-                    backgroundColor: Color.fromARGB(255, 233, 118, 143),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),

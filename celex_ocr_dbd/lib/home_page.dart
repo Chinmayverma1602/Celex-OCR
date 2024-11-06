@@ -7,7 +7,7 @@ class FadeAnimation extends StatefulWidget {
   final double delay;
   final Widget child;
 
-  FadeAnimation(this.delay, this.child);
+  const FadeAnimation(this.delay, this.child, {super.key});
 
   @override
   _FadeAnimationState createState() => _FadeAnimationState();
@@ -33,7 +33,7 @@ class _FadeAnimationState extends State<FadeAnimation>
     );
 
     _offsetAnimation = Tween<Offset>(
-      begin: Offset(0.0, 0.3),
+      begin: const Offset(0.0, 0.3),
       end: Offset.zero,
     ).animate(curve);
 
@@ -95,17 +95,17 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ScannedDetails()),
+                  MaterialPageRoute(builder: (context) => const ScannedDetails()),
                 );
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Background color
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                textStyle: GoogleFonts.poppins(fontSize: 16),
+              ),
               child: Text(
                 "Start",
                 style: GoogleFonts.poppins(color: Colors.white),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red, // Background color
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                textStyle: GoogleFonts.poppins(fontSize: 16),
               ),
             ),
           ],

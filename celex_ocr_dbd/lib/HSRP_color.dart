@@ -92,10 +92,6 @@ class _HsrpColorState extends State<HsrpColor> {
                           onPressed: () {
                             _navigateToNextScreen(1, "White");
                           },
-                          child: Text(
-                            "White",
-                            style: GoogleFonts.poppins(color: Colors.black),
-                          ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
@@ -105,15 +101,15 @@ class _HsrpColorState extends State<HsrpColor> {
                             ),
                             textStyle: GoogleFonts.poppins(fontSize: 16),
                           ),
+                          child: Text(
+                            "White",
+                            style: GoogleFonts.poppins(color: Colors.black),
+                          ),
                         ),
                         ElevatedButton(
                           onPressed: () {
                             _navigateToNextScreen(2, "Yellow"); // Yellow
                           },
-                          child: Text(
-                            "Yellow",
-                            style: GoogleFonts.poppins(color: Colors.black),
-                          ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color.fromARGB(255, 255, 240, 101),
@@ -123,6 +119,10 @@ class _HsrpColorState extends State<HsrpColor> {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             textStyle: GoogleFonts.poppins(fontSize: 16),
+                          ),
+                          child: Text(
+                            "Yellow",
+                            style: GoogleFonts.poppins(color: Colors.black),
                           ),
                         )
                       ],
@@ -135,10 +135,6 @@ class _HsrpColorState extends State<HsrpColor> {
                           onPressed: () {
                             _navigateToNextScreen(3, "Green"); // Green
                           },
-                          child: Text(
-                            "Green",
-                            style: GoogleFonts.poppins(color: Colors.black),
-                          ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color.fromARGB(255, 126, 240, 130),
@@ -149,15 +145,15 @@ class _HsrpColorState extends State<HsrpColor> {
                             ),
                             textStyle: GoogleFonts.poppins(fontSize: 16),
                           ),
+                          child: Text(
+                            "Green",
+                            style: GoogleFonts.poppins(color: Colors.black),
+                          ),
                         ),
                         ElevatedButton(
                           onPressed: () {
                             _navigateToNextScreen(4, "Black"); // Black
                           },
-                          child: Text(
-                            "Black",
-                            style: GoogleFonts.poppins(color: Colors.white),
-                          ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             padding: const EdgeInsets.symmetric(
@@ -166,6 +162,10 @@ class _HsrpColorState extends State<HsrpColor> {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             textStyle: GoogleFonts.poppins(fontSize: 16),
+                          ),
+                          child: Text(
+                            "Black",
+                            style: GoogleFonts.poppins(color: Colors.white),
                           ),
                         )
                       ],
