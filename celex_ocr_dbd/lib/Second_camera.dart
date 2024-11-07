@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:image/image.dart' as img;
 import 'package:img_picker/img_picker.dart';
 
 import 'failure_results.dart';
@@ -14,10 +15,10 @@ class CameraScreen2 extends StatefulWidget {
   final int sizeValue;
 
   const CameraScreen2({
-    super.key,
+    Key? key,
     required this.colorValue,
     required this.sizeValue,
-  });
+  }) : super(key: key);
 
   @override
   _CameraScreenState2 createState() => _CameraScreenState2();
@@ -30,10 +31,28 @@ class _CameraScreenState2 extends State<CameraScreen2> {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
+      // Resize the image to a lower resolution
+      final resizedImage = await _resizeImage(File(pickedFile.path));
       setState(() {
-        _image = File(pickedFile.path);
+        _image = resizedImage;
       });
     }
+  }
+
+  Future<File> _resizeImage(File imageFile) async {
+    final imageBytes = await imageFile.readAsBytes();
+    final originalImage = img.decodeImage(imageBytes);
+
+    // Resize to a smaller resolution, e.g., 640x480
+    final resizedImage =
+        img.copyResize(originalImage!, width: 1600, height: 900);
+
+    final tempDir = Directory.systemTemp;
+    final resizedImagePath = '${tempDir.path}/resized_image.jpg';
+    File(resizedImagePath)
+        .writeAsBytesSync(img.encodeJpg(resizedImage, quality: 70));
+
+    return File(resizedImagePath);
   }
 
   Future<void> postPlateDetails() async {
@@ -42,7 +61,6 @@ class _CameraScreenState2 extends State<CameraScreen2> {
       return;
     }
 
-    // Show the initial Snackbar for processing
     const snackBar = SnackBar(
       content: Row(
         children: [
@@ -51,122 +69,76 @@ class _CameraScreenState2 extends State<CameraScreen2> {
           Text('Processing...'),
         ],
       ),
-      duration:
-          Duration(minutes: 1), // Keep it visible until dismissed manually
+      duration: Duration(minutes: 1),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-    // Define the API endpoint
     final url = Uri.parse(
         'https://uat-newmmhsrp.celexhsrp.in/hsrp-ocr/img_ocr_response.php');
-
-    // Create a Multipart request
     var request = http.MultipartRequest('POST', url);
 
-    // Add the fields to the request
     request.fields['plate_color'] = widget.colorValue.toString();
     request.fields['plate_size'] = widget.sizeValue.toString();
-    request.fields['esm_id'] = "1"; // Replace with your actual esm_id if needed
+    request.fields['esm_id'] = "em00001";
 
-    // Attach the image file to the request as "attachment"
-    request.files.add(await http.MultipartFile.fromPath(
-      'attachment',
-      _image!.path,
-    ));
+    request.files
+        .add(await http.MultipartFile.fromPath('attachment', _image!.path));
 
     try {
-      // Send the request
       var response = await request.send();
-
-      // Dismiss the processing Snackbar
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
       if (response.statusCode == 200) {
-        // Convert response to string
         final responseData = await response.stream.bytesToString();
-        print("Response data: $responseData");
-
         if (responseData.isEmpty) {
-          print("Error: Response data is empty.");
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Received empty response from server.'),
-              duration: Duration(seconds: 2),
-            ),
+                content: Text('Received empty response from server.'),
+                duration: Duration(seconds: 2)),
           );
           return;
         }
 
-        try {
-          // Attempt to parse JSON
-          final responseJson = jsonDecode(responseData);
+        final responseJson = jsonDecode(responseData);
+        String message = responseJson['message'] ?? '';
+        String ocrRegNo = responseJson['ocr_reg_no'] ?? '';
+        String ocrLidNo = responseJson['ocr_lid_no'] ?? '';
 
-          // Ensure that each key exists and is not null before using it
-          String regNo = responseJson['reg_no'] ?? '';
-          String frontLidNo = responseJson['front_lid_no'] ?? '';
-          String rearLidNo = responseJson['rear_lid_no'] ?? '';
-          String message = responseJson['message'] ?? '';
-          String ocrRegNo = responseJson['ocr_reg_no'] ?? '';
-          String ocrLidNo = responseJson['ocr_lid_no'] ?? '';
-
-          // Check the status and navigate accordingly
-          if (responseJson['status'] == 1) {
-            // Navigate to the SuccessResults screen with API response data
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => SuccessResults(
-                  regNo: regNo,
-                  frontLidNo: frontLidNo,
-                  rearLidNo: rearLidNo,
-                  ocrLidNo: ocrLidNo,
-                  ocrRegNo: ocrRegNo,
-                ),
-              ),
-            );
-          } else {
-            // Navigate to the FailedResults screen with API response data
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => FailedResults(
-                  regNo: regNo,
-                  ocrLidNo: ocrLidNo,
-                  frontLidNo: frontLidNo,
-                  rearLidNo: rearLidNo,
-                  message: message,
-                  ocrRegNo: ocrRegNo,
-                ),
-              ),
-            );
-          }
-        } catch (e) {
-          print("Error parsing JSON: $e");
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Error parsing server response.'),
-              duration: Duration(seconds: 2),
+        if (responseJson['status'] == 1) {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => SuccessResults(
+              regNo: responseJson['reg_no'] ?? '',
+              frontLidNo: responseJson['front_lid_no'] ?? '',
+              rearLidNo: responseJson['rear_lid_no'] ?? '',
+              ocrLidNo: ocrLidNo,
+              ocrRegNo: ocrRegNo,
             ),
-          );
+          ));
+        } else {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => FailedResults(
+              regNo: responseJson['reg_no'] ?? '',
+              ocrLidNo: ocrLidNo,
+              frontLidNo: responseJson['front_lid_no'] ?? '',
+              rearLidNo: responseJson['rear_lid_no'] ?? '',
+              message: message,
+              ocrRegNo: ocrRegNo,
+            ),
+          ));
         }
       } else {
-        // Handle error response
-        print('Error: ${response.statusCode}');
-        print('Error response body: ${await response.stream.bytesToString()}');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error uploading image: ${response.statusCode}'),
-            duration: const Duration(seconds: 2),
-          ),
+              content: Text('Error uploading image: ${response.statusCode}'),
+              duration: const Duration(seconds: 2)),
         );
       }
     } catch (e) {
-      // Dismiss the Snackbar in case of an exception
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      print('Exception caught: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Exception caught: $e'),
-          duration: const Duration(seconds: 2),
-        ),
+            content: Text('Exception caught: $e'),
+            duration: const Duration(seconds: 2)),
       );
     }
   }
@@ -333,17 +305,6 @@ class _CameraScreenState2 extends State<CameraScreen2> {
                 ),
               ),
             ),
-          const SizedBox(
-            height: 20,
-          ),
-          // ElevatedButton(
-          //     onPressed: () {
-          //       Navigator.push(
-          //           context,
-          //           MaterialPageRoute(
-          //               builder: (context) => const BackupScanning()));
-          //     },
-          //     child: const Text("New Button")),
           const SizedBox(height: 20),
           if (_image != null)
             ElevatedButton(
@@ -358,13 +319,11 @@ class _CameraScreenState2 extends State<CameraScreen2> {
                 textStyle: GoogleFonts.poppins(fontSize: 18),
               ),
               child: Text(
-                'Next',
+                'Post Details',
                 style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
               ),
             ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
